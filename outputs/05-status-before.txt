@@ -1,0 +1,102 @@
+[direct: mongos] CollegeDB> shardingVersion
+{ _id: 1, clusterId: ObjectId('6b0592be26c947c8879de87c') }
+---
+shards
+[
+  {
+    _id: 'shardA',
+    host: 'shardA/shardA1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 2 })
+  },
+  {
+    _id: 'shardB',
+    host: 'shardB/shardB1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 6 })
+  }
+]
+---
+active mongoses
+[ { '7.0.48': 1 } ]
+---
+autosplit
+{ 'Currently enabled': 'yes' }
+---
+balancer
+{
+  'Currently enabled': 'yes',
+  'Failed balancer rounds in last 5 attempts': 0,
+  'Currently running': 'no',
+  'Migration Results for the last 24 hours': 'No recent migrations'
+}
+---
+shardedDataDistribution
+[
+  {
+    ns: 'CollegeDB.students',
+    shards: [
+      {
+        shardName: 'shardB',
+        numOrphanedDocs: 0,
+        numOwnedDocuments: 8,
+        ownedSizeBytes: 584,
+        orphanedSizeBytes: 0
+      }
+    ]
+  }
+]
+---
+databases
+[
+  {
+    database: {
+      _id: 'CollegeDB',
+      primary: 'shardB',
+      partitioned: false,
+      version: {
+        uuid: UUID('30bbd4b8-a03a-4af0-af6d-654b9b5cbafa'),
+        timestamp: Timestamp({ t: 1795527465, i: 1 }),
+        lastMod: 1
+      }
+    },
+    collections: {
+      'CollegeDB.students': {
+        shardKey: { student_id: 1 },
+        unique: false,
+        balancing: true,
+        allowMigrations: true,
+        chunkMetadata: [ { shard: 'shardB', nChunks: 1 } ],
+        chunks: [
+          { min: { student_id: MinKey() }, max: { student_id: MaxKey() }, 'on shard': 'shardB', 'last modified': Timestamp({ t: 1, i: 0 }) }
+        ],
+        tags: []
+      }
+    }
+  },
+  {
+    database: { _id: 'config', primary: 'config', partitioned: true },
+    collections: {}
+  }
+]
+[direct: mongos] CollegeDB> Shard shardB at shardB/shardB1:27017
+{
+  data: '588B',
+  docs: 8,
+  chunks: 1,
+  'estimated data per chunk': '588B',
+  'estimated docs per chunk': 8
+}
+---
+Totals
+{
+  data: '588B',
+  docs: 8,
+  chunks: 1,
+  'Shard shardB': [
+    '100 % data',
+    '100 % docs in cluster',
+    '73B avg obj size on shard'
+  ]
+}
+[direct: mongos] CollegeDB> 

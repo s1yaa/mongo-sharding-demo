@@ -1,0 +1,34 @@
+services:
+  cfg1:
+    image: mongo:7
+    container_name: cfg1
+    command: mongod --configsvr --replSet cfgrs --port 27017 --bind_ip_all
+    networks:
+      - mongo-sharding-net
+
+  shardA1:
+    image: mongo:7
+    container_name: shardA1
+    command: mongod --shardsvr --replSet shardA --port 27017 --bind_ip_all
+    networks:
+      - mongo-sharding-net
+
+  shardB1:
+    image: mongo:7
+    container_name: shardB1
+    command: mongod --shardsvr --replSet shardB --port 27017 --bind_ip_all
+    networks:
+      - mongo-sharding-net
+
+  mongos:
+    image: mongo:7
+    container_name: mongos
+    command: mongos --configdb cfgrs/cfg1:27017 --bind_ip_all --port 27017
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-sharding-net
+
+networks:
+  mongo-sharding-net:
+    name: mongo-sharding-net

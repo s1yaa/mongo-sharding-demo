@@ -1,0 +1,78 @@
+--- sharding collection ---
+{
+  collectionsharded: 'CollegeDB.students',
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527466, i: 45 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527466, i: 45 })
+}
+--- inserting 8 documents ---
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6b05932a0c7b089884d8eb6d'),
+    '1': ObjectId('6b05932a0c7b089884d8eb6e'),
+    '2': ObjectId('6b05932a0c7b089884d8eb6f'),
+    '3': ObjectId('6b05932a0c7b089884d8eb70'),
+    '4': ObjectId('6b05932a0c7b089884d8eb71'),
+    '5': ObjectId('6b05932a0c7b089884d8eb72'),
+    '6': ObjectId('6b05932a0c7b089884d8eb73'),
+    '7': ObjectId('6b05932a0c7b089884d8eb74')
+  }
+}
+--- verify documents in collection ---
+[
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6d'),
+    student_id: 101,
+    name: 'Rahul',
+    department: 'CSE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6e'),
+    student_id: 102,
+    name: 'Priya',
+    department: 'IT'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6f'),
+    student_id: 103,
+    name: 'Amit',
+    department: 'ECE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb70'),
+    student_id: 104,
+    name: 'Sneha',
+    department: 'CSE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb71'),
+    student_id: 105,
+    name: 'Arjun',
+    department: 'IT'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb72'),
+    student_id: 201,
+    name: 'Neha',
+    department: 'ECE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb73'),
+    student_id: 202,
+    name: 'Rohan',
+    department: 'CSE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb74'),
+    student_id: 203,
+    name: 'Ananya',
+    department: 'IT'
+  }
+]

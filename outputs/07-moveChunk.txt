@@ -1,0 +1,31 @@
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> | | | 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> Upper chunk [200, MaxKey) is on shard: shardB
+
+[direct: mongos] CollegeDB> Target destination shard is: shardA
+
+[direct: mongos] CollegeDB> Executing: sh.moveChunk("CollegeDB.students", {student_id: 200}, "shardA")
+
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> {
+  millis: 198,
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527530, i: 55 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527530, i: 55 })
+}
+
+[direct: mongos] CollegeDB> 

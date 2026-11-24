@@ -1,0 +1,132 @@
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> [
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6d'),
+    student_id: 101,
+    name: 'Rahul',
+    department: 'CSE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6e'),
+    student_id: 102,
+    name: 'Priya',
+    department: 'IT'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb6f'),
+    student_id: 103,
+    name: 'Amit',
+    department: 'ECE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb70'),
+    student_id: 104,
+    name: 'Sneha',
+    department: 'CSE'
+  },
+  {
+    _id: ObjectId('6b05932a0c7b089884d8eb71'),
+    student_id: 105,
+    name: 'Arjun',
+    department: 'IT'
+  }
+]
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> SHARD_MERGE
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> {
+  mongosPlannerVersion: 1,
+  winningPlan: {
+    stage: 'SHARD_MERGE',
+    shards: [
+      {
+        shardName: 'shardA',
+        connectionString: 'shardA/shardA1:27017',
+        serverInfo: {
+          host: 'aa0fdfb92c90',
+          port: 27017,
+          version: '7.0.48',
+          gitVersion: '6937736f0539a5d4c8edb2970255b9369cb385a5'
+        },
+        namespace: 'CollegeDB.students',
+        indexFilterSet: false,
+        parsedQuery: {
+          '$and': [ { student_id: [Object] }, { student_id: [Object] } ]
+        },
+        queryHash: '27A36F33',
+        planCacheKey: 'C27A752C',
+        optimizationTimeMillis: 0,
+        maxIndexedOrSolutionsReached: false,
+        maxIndexedAndSolutionsReached: false,
+        maxScansToExplodeReached: false,
+        winningPlan: {
+          stage: 'FETCH',
+          inputStage: {
+            stage: 'SHARDING_FILTER',
+            inputStage: {
+              stage: 'IXSCAN',
+              keyPattern: [Object],
+              indexName: 'student_id_1',
+              isMultiKey: false,
+              multiKeyPaths: [Object],
+              isUnique: false,
+              isSparse: false,
+              isPartial: false,
+              indexVersion: 2,
+              direction: 'forward',
+              indexBounds: [Object]
+            }
+          }
+        },
+        rejectedPlans: []
+      },
+      {
+        shardName: 'shardB',
+        connectionString: 'shardB/shardB1:27017',
+        serverInfo: {
+          host: '222ef94f772d',
+          port: 27017,
+          version: '7.0.48',
+          gitVersion: '6937736f0539a5d4c8edb2970255b9369cb385a5'
+        },
+        namespace: 'CollegeDB.students',
+        indexFilterSet: false,
+        parsedQuery: {
+          '$and': [ { student_id: [Object] }, { student_id: [Object] } ]
+        },
+        queryHash: '27A36F33',
+        planCacheKey: 'C27A752C',
+        optimizationTimeMillis: 0,
+        maxIndexedOrSolutionsReached: false,
+        maxIndexedAndSolutionsReached: false,
+        maxScansToExplodeReached: false,
+        winningPlan: {
+          stage: 'FETCH',
+          inputStage: {
+            stage: 'SHARDING_FILTER',
+            inputStage: {
+              stage: 'IXSCAN',
+              keyPattern: [Object],
+              indexName: 'student_id_1',
+              isMultiKey: false,
+              multiKeyPaths: [Object],
+              isUnique: false,
+              isSparse: false,
+              isPartial: false,
+              indexVersion: 2,
+              direction: 'forward',
+              indexBounds: [Object]
+            }
+          }
+        },
+        rejectedPlans: []
+      }
+    ]
+  }
+}
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> 
+[direct: mongos] CollegeDB> SINGLE_SHARD
+[direct: mongos] CollegeDB> 

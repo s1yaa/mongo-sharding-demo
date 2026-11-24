@@ -1,0 +1,25 @@
+{
+  isWritablePrimary: true,
+  msg: 'isdbgrid',
+  topologyVersion: {
+    processId: ObjectId('6b0592dca4a36b7bce7968e6'),
+    counter: Long('0')
+  },
+  maxBsonObjectSize: 16777216,
+  maxMessageSizeBytes: 48000000,
+  maxWriteBatchSize: 100000,
+  localTime: ISODate('2026-11-24T13:37:45.720Z'),
+  logicalSessionTimeoutMinutes: 30,
+  connectionId: 27,
+  maxWireVersion: 21,
+  minWireVersion: 0,
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527464, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527464, i: 1 })
+}

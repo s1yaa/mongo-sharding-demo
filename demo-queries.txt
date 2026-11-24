@@ -1,0 +1,66 @@
+// ===============================================================
+// MongoDB Range-Based Sharding Demo Queries
+// Terminal command to connect:
+//   docker exec -it mongos mongosh CollegeDB
+// ===============================================================
+
+
+// --- STEP 0: Reset Collection (Ensures clean slate) ---
+db.students.drop()
+
+
+// --- STEP 1: Verify Router Identity & List Shards ---
+db.adminCommand({ hello: 1 })
+
+sh.listShards()
+
+
+// --- STEP 2: Enable Sharding & Shard Collection (Empty) ---
+sh.enableSharding("CollegeDB")
+
+sh.shardCollection("CollegeDB.students", { student_id: 1 })
+
+
+// --- STEP 3: Insert 8 Sample Documents ---
+db.students.insertMany([
+  { student_id: 101, name: "Rahul", department: "CSE" },
+  { student_id: 102, name: "Priya", department: "IT" },
+  { student_id: 103, name: "Amit", department: "ECE" },
+  { student_id: 104, name: "Sneha", department: "CSE" },
+  { student_id: 105, name: "Arjun", department: "IT" },
+  { student_id: 201, name: "Neha", department: "ECE" },
+  { student_id: 202, name: "Rohan", department: "CSE" },
+  { student_id: 203, name: "Ananya", department: "IT" }
+])
+
+
+// --- STEP 4: Initial State Check (1 Chunk, 8 Docs on Shard B) ---
+db.students.getShardDistribution()
+
+
+// --- STEP 5: Split Chunk at Boundary student_id: 200 ---
+sh.splitAt("CollegeDB.students", { student_id: 200 })
+
+
+// --- STEP 6: Move Upper Chunk [200, MaxKey) to Shard A ---
+sh.moveChunk("CollegeDB.students", { student_id: 200 }, "shardA")
+
+
+// --- STEP 7: Verify Distribution After Migration (5 vs 3 Docs) ---
+sh.status()
+
+
+// --- STEP 8: Query Routing & Execution Plans ---
+
+// 8a. Single Shard Query [100, 199] -> Expect: SINGLE_SHARD
+db.students.find({ student_id: { $gte: 100, $lte: 199 } }).explain().queryPlanner.winningPlan.stage
+
+// 8b. Boundary Query [100, 200] -> Expect: SHARD_MERGE (200 touches Chunk 2 on shardA)
+db.students.find({ student_id: { $gte: 100, $lte: 200 } }).explain().queryPlanner.winningPlan.stage
+
+// 8c. Multi-Shard Query [100, 300] -> Expect: SHARD_MERGE (spans across both chunks)
+db.students.find({ student_id: { $gte: 100, $lte: 300 } }).explain().queryPlanner.winningPlan.stage
+
+
+// --- BONUS: Fetch Actual Documents ---
+db.students.find({ student_id: { $gte: 100, $lte: 200 } })

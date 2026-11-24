@@ -1,0 +1,43 @@
+=== Adding shardA ===
+{
+  shardAdded: 'shardA',
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527439, i: 5 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527439, i: 5 })
+}
+
+=== Adding shardB ===
+{
+  shardAdded: 'shardB',
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527439, i: 18 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527439, i: 8 })
+}
+
+=== sh.listShards() ===
+[
+  {
+    _id: 'shardA',
+    host: 'shardA/shardA1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 2 })
+  },
+  {
+    _id: 'shardB',
+    host: 'shardB/shardB1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 6 })
+  }
+]

@@ -1,0 +1,127 @@
+[direct: mongos] CollegeDB> shardingVersion
+{ _id: 1, clusterId: ObjectId('6b0592be26c947c8879de87c') }
+---
+shards
+[
+  {
+    _id: 'shardA',
+    host: 'shardA/shardA1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 2 })
+  },
+  {
+    _id: 'shardB',
+    host: 'shardB/shardB1:27017',
+    state: 1,
+    topologyTime: Timestamp({ t: 1795527439, i: 6 })
+  }
+]
+---
+active mongoses
+[ { '7.0.48': 1 } ]
+---
+autosplit
+{ 'Currently enabled': 'yes' }
+---
+balancer
+{
+  'Currently enabled': 'yes',
+  'Currently running': 'no',
+  'Failed balancer rounds in last 5 attempts': 0,
+  'Migration Results for the last 24 hours': { '1': 'Success' }
+}
+---
+shardedDataDistribution
+[
+  {
+    ns: 'CollegeDB.students',
+    shards: [
+      {
+        shardName: 'shardA',
+        numOrphanedDocs: 0,
+        numOwnedDocuments: 3,
+        ownedSizeBytes: 219,
+        orphanedSizeBytes: 0
+      },
+      {
+        shardName: 'shardB',
+        numOrphanedDocs: 3,
+        numOwnedDocuments: 5,
+        ownedSizeBytes: 365,
+        orphanedSizeBytes: 219
+      }
+    ]
+  }
+]
+---
+databases
+[
+  {
+    database: {
+      _id: 'CollegeDB',
+      primary: 'shardB',
+      partitioned: false,
+      version: {
+        uuid: UUID('30bbd4b8-a03a-4af0-af6d-654b9b5cbafa'),
+        timestamp: Timestamp({ t: 1795527465, i: 1 }),
+        lastMod: 1
+      }
+    },
+    collections: {
+      'CollegeDB.students': {
+        shardKey: { student_id: 1 },
+        unique: false,
+        balancing: true,
+        allowMigrations: true,
+        chunkMetadata: [
+          { shard: 'shardA', nChunks: 1 },
+          { shard: 'shardB', nChunks: 1 }
+        ],
+        chunks: [
+          { min: { student_id: MinKey() }, max: { student_id: 200 }, 'on shard': 'shardB', 'last modified': Timestamp({ t: 2, i: 1 }) },
+          { min: { student_id: 200 }, max: { student_id: MaxKey() }, 'on shard': 'shardA', 'last modified': Timestamp({ t: 2, i: 0 }) }
+        ],
+        tags: []
+      }
+    }
+  },
+  {
+    database: { _id: 'config', primary: 'config', partitioned: true },
+    collections: {}
+  }
+]
+[direct: mongos] CollegeDB> Shard shardA at shardA/shardA1:27017
+{
+  data: '221B',
+  docs: 3,
+  chunks: 1,
+  'estimated data per chunk': '221B',
+  'estimated docs per chunk': 3
+}
+---
+Shard shardB at shardB/shardB1:27017
+{
+  data: '369B',
+  docs: 8,
+  chunks: 1,
+  'estimated data per chunk': '369B',
+  'estimated docs per chunk': 8
+}
+---
+Totals
+{
+  data: '590B',
+  docs: 11,
+  chunks: 2,
+  'Shard shardA': [
+    '37.45 % data',
+    '27.27 % docs in cluster',
+    '73B avg obj size on shard'
+  ],
+  'Shard shardB': [
+    '62.54 % data',
+    '72.72 % docs in cluster',
+    '73B avg obj size on shard'
+  ]
+}
+[direct: mongos] CollegeDB> 

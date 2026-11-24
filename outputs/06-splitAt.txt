@@ -1,0 +1,12 @@
+[direct: mongos] CollegeDB> {
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1795527500, i: 9 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1795527500, i: 9 })
+}
+[direct: mongos] CollegeDB> 
